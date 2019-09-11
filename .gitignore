@@ -30,27 +30,7 @@ build/
 ### VS Code ###
 .vscode/
 
-.metadata/*
-
-.recommenders/*
-
-
-Libraries/*
-
-
-RemoteSystemsTempFiles/*
-
-
-Servers/*
-
-
-Sevent/*
-
-
-
-.tmp.drivedownload/*
-desktop.ini
-Source Codes/*
+bin/
 
 # Compiled class file
 *.class
@@ -75,12 +55,6 @@ Source Codes/*
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
-#desktop.ini files from google cloud system
-desktop.ini
-/*/*/desktop.ini
-/*/desktop.ini
-*/desktop.ini
 
 #.db files
 /*/thubs.db
@@ -109,3 +83,5 @@ desktop.ini
 
 # External tool builders
 .externalToolBuilders/
+
+
