@@ -24,54 +24,63 @@ public class Company {
 	@ManyToMany
 	@JoinTable(name = "COMPANY_CUSTOMERS", joinColumns = @JoinColumn(name = "COMPANY_ID"), inverseJoinColumns = @JoinColumn(name = "CUSTOMER_ID"))
 	private List<Customer> customers = new ArrayList<Customer>();
-	
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "company_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
 
-	Long getId() {
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	private Collection<Role> roles;
+
+	public Long getId() {
 		return id;
 	}
 
-	void setId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	String getName() {
+	public String getName() {
 		return name;
 	}
 
-	void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	List<Customer> getCustomers() {
-		return customers;
-	}
-
-	void setCustomers(List<Customer> customers) {
-		this.customers = customers;
-	}
-
-	String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	void setEmail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
+	}
+
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
+	}
+
+	@Override
+	public String toString() {
+		return "Company [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", customers="
+				+ customers + ", roles=" + roles + "]";
 	}
 
 }
