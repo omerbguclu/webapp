@@ -1,8 +1,11 @@
 package com.toplagel.webapp.service;
 
-import org.springframework.stereotype.Service;
+import com.toplagel.webapp.entity.Customer;
 
-@Service
-public class CustomerService {
+public interface CustomerService {
+	
+	void save(Customer customer);
+	
+	Customer findByEmail(String email);
 
 }

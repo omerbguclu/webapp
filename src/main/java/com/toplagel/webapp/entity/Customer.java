@@ -5,6 +5,8 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -14,50 +16,60 @@ import javax.persistence.ManyToMany;
 public class Customer {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String email;
 	private String password;
-	
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "customer_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
 
-	Long getId() {
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	private Collection<Role> roles;
+
+	public Long getId() {
 		return id;
 	}
 
-	void setId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	String getName() {
+	public String getName() {
 		return name;
 	}
 
-	void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	void setEmail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", roles="
+				+ roles + "]";
 	}
 
 }
