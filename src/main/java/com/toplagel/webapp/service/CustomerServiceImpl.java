@@ -1,10 +1,13 @@
 package com.toplagel.webapp.service;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.toplagel.webapp.entity.Customer;
+import com.toplagel.webapp.entity.Role;
 import com.toplagel.webapp.repository.CustomerRepository;
 
 @Service
@@ -20,6 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public void save(Customer customer) {
 
 		customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
+		customer.setRoles(Arrays.asList(new Role("ROLE_CUSTOMER")));
 		customerRepository.save(customer);
 	}
 

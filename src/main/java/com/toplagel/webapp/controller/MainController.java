@@ -32,7 +32,7 @@ public class MainController {
 	}
 
 	@GetMapping("/company-login")
-	public String loginForCompany() {
+	public String loginForCompany(Model model) {
 		return "company-login";
 	}
 
