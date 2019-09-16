@@ -14,7 +14,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.toplagel.webapp.service.CompanyService;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
@@ -25,16 +24,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .authorizeRequests()
                     .antMatchers(
-                            "/index**",
+                    		"/index**",
+                            "/company-register**",
+                            "/customer-register**",
                             "/js/**",
                             "/css/**",
                             "/img/**",
                             "/webjars/**").permitAll()
                     .anyRequest().authenticated()
-                .and().authorizeRequests().antMatchers("/index/**").permitAll().anyRequest().anonymous()
+                //.and().authorizeRequests().antMatchers("/index/**").permitAll().anyRequest().anonymous()
                 .and()
                     .formLogin()
-                        .loginPage("/login")
+                        .loginPage("/company-login")
                             .permitAll()
                 .and()
                     .logout()
@@ -46,11 +47,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         
         /*H2-Console Authorization*/
         
-        http.csrf().ignoringAntMatchers("/h2-console/**");
-        http.headers().frameOptions().sameOrigin();
+        /*http.csrf().ignoringAntMatchers("/h2-console/**");
+        http.headers().frameOptions().sameOrigin();*/
         
     }
     
+    /*@Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+        .antMatchers("/login").permitAll().anyRequest().authenticated()
+        .and().formLogin()
+        .and().logout().logoutSuccessUrl("/login").permitAll();
+    }*/
+	
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();

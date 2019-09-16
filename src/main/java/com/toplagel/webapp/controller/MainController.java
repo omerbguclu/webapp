@@ -23,18 +23,18 @@ public class MainController {
 
 	@GetMapping("/")
 	public String home() {
-		return "index";
-	}
-
-	@GetMapping("/login")
-	public String root() {
-		return "index";
+		return "welcome";
 	}
 
 	@GetMapping("/company-login")
 	public String loginForCompany(Model model) {
 		return "company-login";
 	}
+	
+    @GetMapping("/company")
+    public String userIndex() {
+        return "company/welcome";
+    }
 
 	@GetMapping("/customer-login")
 	public String loginForCustomer() {
@@ -55,14 +55,12 @@ public class MainController {
 
 	@PostMapping("/company-register")
 	public String registerForCompanyPost(@ModelAttribute Company company) {
-		System.out.println(company);
 		companyServiceImpl.save(company);
 		return "index";
 	}
 
 	@PostMapping("/customer-register")
 	public String registerForCustomerPost(@ModelAttribute Customer customer) {
-		System.out.println(customer);
 		customerServiceImpl.save(customer);
 		return "index";
 	}
