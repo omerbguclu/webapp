@@ -24,15 +24,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .authorizeRequests()
                     .antMatchers(
-                    		"/index**",
-                            "/company-register**",
-                            "/customer-register**",
+                    		"/index*",
+                            "/company-register*",
+                            "/customer-register*",
                             "/js/**",
                             "/css/**",
                             "/img/**",
                             "/webjars/**").permitAll()
                     .anyRequest().authenticated()
-                //.and().authorizeRequests().antMatchers("/index/**").permitAll().anyRequest().anonymous()
+                //.and().authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().anonymous()
                 .and()
                     .formLogin()
                         .loginPage("/company-login")

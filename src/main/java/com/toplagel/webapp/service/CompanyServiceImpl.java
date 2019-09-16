@@ -26,25 +26,27 @@ public class CompanyServiceImpl implements CompanyService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
-	public void save(Company company) {
+	public Company findByEmail(String email) {
+		return companyRepository.findByEmail(email);
+	}
+	
+	@Override
+	public Company save(Company company) {
 
 		company.setPassword(bCryptPasswordEncoder.encode(company.getPassword()));
 		// company.setRoles(new HashSet<>(roleRepository.findAll()));
 		company.setRoles(Arrays.asList(new Role("ROLE_COMPANY")));
-		companyRepository.save(company);
-	}
-
-	@Override
-	public Company findByEmail(String email) {
-		return companyRepository.findByEmail(email);
+		return companyRepository.save(company);
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Company company = companyRepository.findByEmail(email);
         if (company == null){
+        	System.out.println(email+" user not found");
             throw new UsernameNotFoundException("Invalid email or password.");
         }
+        System.out.println(company.toString());
         return new org.springframework.security.core.userdetails.User(company.getEmail(),
                 company.getPassword(),
                 mapRolesToAuthorities(company.getRoles()));

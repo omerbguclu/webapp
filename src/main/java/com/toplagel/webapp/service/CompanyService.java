@@ -6,7 +6,7 @@ import com.toplagel.webapp.entity.Company;
 
 public interface CompanyService extends UserDetailsService{
 	
-	void save(Company company);
+	Company save(Company company);
 	
 	Company findByEmail(String email);
 

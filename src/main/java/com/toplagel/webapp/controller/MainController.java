@@ -20,7 +20,7 @@ public class MainController {
 	
 	@Autowired
 	private CompanyServiceImpl companyServiceImpl;
-
+	
 	@GetMapping("/")
 	public String home() {
 		return "welcome";
@@ -31,10 +31,10 @@ public class MainController {
 		return "company-login";
 	}
 	
-    @GetMapping("/company")
+    /*@GetMapping("/company")
     public String userIndex() {
         return "company/welcome";
-    }
+    }*/
 
 	@GetMapping("/customer-login")
 	public String loginForCustomer() {
