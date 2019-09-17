@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .authorizeRequests()
                     .antMatchers(
-                    		"/index*",
+                    		"/index",
                             "/company-register*",
                             "/customer-register*",
                             "/js/**",
@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                             "/img/**",
                             "/webjars/**").permitAll()
                     .anyRequest().authenticated()
-                //.and().authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().anonymous()
+                //.and().authorizeRequests().antMatchers("/index").permitAll().anyRequest().anonymous()
                 .and()
                     .formLogin()
                         .loginPage("/company-login")
@@ -46,8 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         
         /*H2-Console Authorization*/
         
-        /*http.csrf().ignoringAntMatchers("/h2-console/**");
-        http.headers().frameOptions().sameOrigin();*/
+        http.csrf().ignoringAntMatchers("/h2-console/**");
+        http.headers().frameOptions().sameOrigin();
         
     }
 

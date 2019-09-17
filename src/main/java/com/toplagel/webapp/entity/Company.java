@@ -1,6 +1,8 @@
 package com.toplagel.webapp.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -25,9 +27,9 @@ public class Company {
 	
 	private String password;
 
-	/*@ManyToMany
+	@ManyToMany
 	@JoinTable(name = "COMPANY_CUSTOMERS", joinColumns = @JoinColumn(name = "COMPANY_ID"), inverseJoinColumns = @JoinColumn(name = "CUSTOMER_ID"))
-	private List<Customer> customers = new ArrayList<Customer>();*/
+	private List<Customer> customers = new ArrayList<Customer>();
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "company_roles", joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
@@ -65,13 +67,13 @@ public class Company {
 		this.password = password;
 	}
 
-	/*public List<Customer> getCustomers() {
+	public List<Customer> getCustomers() {
 		return customers;
 	}
 
 	public void setCustomers(List<Customer> customers) {
 		this.customers = customers;
-	}*/
+	}
 
 	public Collection<Role> getRoles() {
 		return roles;

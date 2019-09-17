@@ -25,6 +25,11 @@ public class MainController {
 	public String home() {
 		return "welcome";
 	}
+	
+	@GetMapping("/index")
+	public String index() {
+		return "index";
+	}
 
 	@GetMapping("/company-login")
 	public String loginForCompany(Model model) {
