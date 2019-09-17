@@ -50,15 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.headers().frameOptions().sameOrigin();*/
         
     }
-    
-    /*@Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-        .antMatchers("/login").permitAll().anyRequest().authenticated()
-        .and().formLogin()
-        .and().logout().logoutSuccessUrl("/login").permitAll();
-    }*/
-	
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
