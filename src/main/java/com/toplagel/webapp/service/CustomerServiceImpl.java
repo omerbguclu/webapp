@@ -33,8 +33,14 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepository.findByEmail(email);
 	}
 	
+	@Override
 	public List<Customer> getCustomers() {
 		return (List<Customer>) customerRepository.findAll();
+	}
+
+	@Override
+	public Customer findById(Long id) {
+		return customerRepository.findById(id).get();
 	}
 
 }

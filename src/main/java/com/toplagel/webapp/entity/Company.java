@@ -1,6 +1,5 @@
 package com.toplagel.webapp.entity;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,8 +27,8 @@ public class Company {
 	private String password;
 
 	@ManyToMany
-	@JoinTable(name = "COMPANY_CUSTOMERS", joinColumns = @JoinColumn(name = "COMPANY_ID"), inverseJoinColumns = @JoinColumn(name = "CUSTOMER_ID"))
-	private List<Customer> customers = new ArrayList<Customer>();
+	@JoinTable(name = "COMPANY_CUSTOMERS", joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"))
+	private List<Customer> customers;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "company_roles", joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))

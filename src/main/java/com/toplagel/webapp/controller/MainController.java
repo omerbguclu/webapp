@@ -1,6 +1,8 @@
 package com.toplagel.webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.toplagel.webapp.entity.Company;
 import com.toplagel.webapp.entity.Customer;
+import com.toplagel.webapp.service.CompanyService;
 import com.toplagel.webapp.service.CompanyServiceImpl;
 import com.toplagel.webapp.service.CustomerServiceImpl;
 
@@ -21,8 +24,13 @@ public class MainController {
 	@Autowired
 	private CompanyServiceImpl companyServiceImpl;
 	
+	@Autowired
+	private CompanyService companyService;
+	
 	@GetMapping("/")
-	public String home() {
+	public String home(Model model) {
+	    Company company = companyService.findByEmail(getActiveLoggedUserEmail());
+	    model.addAttribute("listCustomers", company.getCustomers());
 		return "welcome";
 	}
 	
@@ -68,6 +76,16 @@ public class MainController {
 	public String registerForCustomerPost(@ModelAttribute Customer customer) {
 		customerServiceImpl.save(customer);
 		return "index";
+	}
+	
+	public String getActiveLoggedUserEmail() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			return ((UserDetails) principal).getUsername();
+		} else {
+			return principal.toString();
+		}
+		
 	}
 
 }
