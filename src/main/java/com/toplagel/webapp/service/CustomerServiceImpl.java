@@ -1,6 +1,7 @@
 package com.toplagel.webapp.service;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +31,10 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Customer findByEmail(String email) {
 		return customerRepository.findByEmail(email);
+	}
+	
+	public List<Customer> getCustomers() {
+		return (List<Customer>) customerRepository.findAll();
 	}
 
 }

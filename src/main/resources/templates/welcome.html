@@ -45,10 +45,10 @@
 			Welcome <span sec:authentication="principal.username">User</span>
 		</p>
 		<div sec:authorize="hasRole('ROLE_COMPANY')">
-			<a href = "/add-customer">Add Customer</a>
+			<a href = "/company/add-customer">Add Customer</a>
 		</div>
 		<div sec:authorize="hasRole('ROLE_CUSTOMER')">
-			<a href = "/add-company">Add Company</a>
+			<a href = "/customer/add-company">Add Company</a>
 		</div>
 	</div>
 
