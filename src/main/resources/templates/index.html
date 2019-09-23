@@ -36,11 +36,11 @@
 	</nav>
 
 	<div class="container">
-		<a class="btn btn-primary btn-sm" th:href="@{/company-login}" role="button">company-login</a>
-		<a class="btn btn-primary btn-sm" th:href="@{/customer-login}" role="button">customer-login</a>
+		<a class="btn btn-primary btn-sm" th:href="${@environment.getProperty('app.company.login')}" role="button">company-login</a>
+		<a class="btn btn-primary btn-sm" th:href="${@environment.getProperty('app.customer.login')}" role="button">customer-login</a>
 		<br><br>
-		<a class="btn btn-primary btn-sm" th:href="@{/company-register}" role="button">company-register</a>
-		<a class="btn btn-primary btn-sm" th:href="@{/customer-register}" role="button">customer-register</a>
+		<a class="btn btn-primary btn-sm" th:href="${@environment.getProperty('app.company.register')}" role="button">company-register</a>
+		<a class="btn btn-primary btn-sm" th:href="${@environment.getProperty('app.customer.register')}" role="button">customer-register</a>
 		
 	</div>
 

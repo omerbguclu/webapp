@@ -31,7 +31,7 @@ public class CompanyServiceImpl implements CompanyService {
 	public Company findByEmail(String email) {
 		return companyRepository.findByEmail(email);
 	}
-	
+
 	@Override
 	public Company save(Company company) {
 

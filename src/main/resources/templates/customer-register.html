@@ -48,7 +48,7 @@
 				</div>
 
 				<h1>Registration</h1>
-				<form th:action="@{/customer-register}" th:object="${customer}" method="post">
+				<form th:action="${@environment.getProperty('app.customer.register')}" th:object="${customer}" method="post">
 					<div class="form-group">
 						<label for="exampleInputName1">Your name</label> <input
 							type="text" th:field="*{name}" class="form-control" id="exampleInputName1"

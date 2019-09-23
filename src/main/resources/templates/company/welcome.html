@@ -11,6 +11,7 @@
 </head>
 <body>
 
+
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  <a class="navbar-brand" href="/">Navbar</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,55 +31,55 @@
 	           <li class="nav-item">
 	      			<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
 	    		</li>
-			<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/customer/logout}">Logout</a></li>
+			<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
 	    </ul>
 	  </div>
 	</nav>
-
+	
+	<br>
+	<br>
 	<div class="container">
+		<h1>COMPANY WELCOME PAGE</h1>
 
+		<p>
+			Welcome <span sec:authentication="principal.username">User</span>
+		</p>
+		<div sec:authorize="hasRole('ROLE_COMPANY')">
+			<a href = "/company/add-customer">Add Customer</a>
 
-		<a class="btn btn-primary btn-sm" href="#" role="button">Şirket
-			Üye Ol</a> <a class="btn btn-primary btn-sm" href="#" role="button">Esnaf
-			Üye Ol</a>
+			<h1>My Customer List</h1>
+			<br /> <br />
+			<table border="1">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="customer : ${listCustomers}">
+						<td th:text="${customer.name}">Name</td>
+						<td th:text="${customer.email}">Email</td>
+						<td>
+							<form th:action="@{'/company/delete-customer/' + ${customer.id}}"
+								method="post">
+								<button type="submit" name="delete-button" value="delete-button"
+									class="btn-link">Delete</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
-
-
-		<form th:action="${@environment.getProperty('app.customer.login')}" method="post">
-			<div th:if="${param.error}">
-				<div class="alert alert-danger">Invalid username or password.</div>
-			</div>
-			<div th:if="${param.logout}">
-				<div class="alert alert-info">You have been logged out.</div>
-			</div>
-			<div class="form-group">
-				<label for="username">Email</label>: <input type="text"
-					id="username" name="username" class="form-control"
-					autofocus="autofocus" placeholder="Email" />
-			</div>
-			<div class="form-group">
-				<label for="password">Password</label>: <input type="password"
-					id="password" name="password" class="form-control"
-					placeholder="Password" />
-			</div>
-			<div class="form-group">
-				<div class="row">
-					<div class="col-sm-6 col-sm-offset-3">
-						<input type="submit" name="login-submit" id="login-submit"
-							class="form-control btn btn-primary" value="Log In" />
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<span>New user? <a href="/" th:href="${@environment.getProperty('app.customer.register')}">Register
-						here</a></span>
-			</div>
-		</form>
-
+		</div>
+		<div sec:authorize="hasRole('ROLE_CUSTOMER')">
+			<a href = "/customer/add-company">Add Company</a>
+		</div>
 	</div>
 
+
 	<script type="text/javascript"
-		th:src="@{/webjars/jquery/dist/3.2.1/jquery.min.js/}"></script>
+		th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js/}"></script>
 	<script type="text/javascript"
 		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 
