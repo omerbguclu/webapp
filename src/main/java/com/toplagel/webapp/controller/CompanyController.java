@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.toplagel.webapp.entity.Company;
 import com.toplagel.webapp.entity.Customer;
+import com.toplagel.webapp.entity.Product;
+import com.toplagel.webapp.repository.ProductRepository;
 import com.toplagel.webapp.service.CompanyService;
 import com.toplagel.webapp.service.CompanyServiceImpl;
 import com.toplagel.webapp.service.CustomerService;
@@ -31,6 +33,9 @@ public class CompanyController {
 	
 	@Autowired
 	private CompanyServiceImpl companyServiceImpl;
+	
+	@Autowired
+	private ProductRepository productRepository;
 
 	@GetMapping
 	public String home(Model model) {
@@ -98,6 +103,17 @@ public class CompanyController {
 			System.out.println("There is no user with this name");
 		}
 		return "redirect:/company";
+	}
+	
+	@GetMapping("/add-product")
+	public String addProductPage(Model model) {
+		return "company/add-product";		
+	}
+
+	@PostMapping
+	public String addProduct(Product product) {
+		productRepository.save(product);
+		return "company/add-product";		
 	}
 
 	public String getActiveLoggedUserEmail() {
