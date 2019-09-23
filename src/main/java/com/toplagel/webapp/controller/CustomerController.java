@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.toplagel.webapp.entity.Company;
 import com.toplagel.webapp.entity.Customer;
+import com.toplagel.webapp.service.CompanyService;
+import com.toplagel.webapp.service.CustomerService;
 import com.toplagel.webapp.service.CustomerServiceImpl;
 
 @Controller
@@ -19,12 +22,38 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerServiceImpl customerServiceImpl;
-
-	@GetMapping("/customer-login")
-	public String loginForCustomer() {
-		return "customer-login";
+	
+	@Autowired
+	private CustomerService customerService;
+	
+	@Autowired
+	private CompanyService companyService;
+	
+	@GetMapping
+	public String home(Model model) {
+		Customer customer = customerService.findByEmail(getActiveLoggedUserEmail());
+		model.addAttribute("listCompanies", customer.getCompanies());
+		return "welcome";
 	}
 
+	@GetMapping("/customer-login")
+	public String loginForCustomer(Model model) {
+		System.out.println(getActiveLoggedUserEmail());
+		if (getActiveLoggedUserEmail() == "anonymousUser" || getActiveLoggedUserEmail() == null) {
+			return "customer-login";
+		}
+		else {
+			if(getActiveLoggedUserRole() == null || getActiveLoggedUserRole().contains("ROLE_COMPANY")) {
+				Company company = companyService.findByEmail(getActiveLoggedUserEmail());
+				model.addAttribute("listCustomers", company.getCustomers());
+			}
+			else{
+				Customer customer = customerService.findByEmail(getActiveLoggedUserEmail());
+				model.addAttribute("listCompanies", customer.getCompanies());
+			}
+			return "welcome";
+		}
+	}
 	@GetMapping("/customer-register")
 	public String registerForCustomer(Model model) {
 		model.addAttribute("customer", new Customer());
@@ -45,6 +74,15 @@ public class CustomerController {
 			return principal.toString();
 		}
 
+	}
+	
+	public String getActiveLoggedUserRole() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			return ((UserDetails) principal).getAuthorities().toString();
+		} else {
+			return null;
+		}
 	}
 
 }

@@ -3,6 +3,7 @@ package com.toplagel.webapp.service;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,16 @@ import com.toplagel.webapp.entity.Company;
 import com.toplagel.webapp.entity.Customer;
 import com.toplagel.webapp.entity.Role;
 import com.toplagel.webapp.repository.CompanyRepository;
+import com.toplagel.webapp.repository.CustomerRepository;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
 	private CompanyRepository companyRepository;
+	
+	@Autowired
+	private CustomerRepository customerRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -62,17 +67,25 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public Company addCustomer(Company company,Customer customer) {
-		List<Customer> list = company.getCustomers();
-		list.add(customer);
-		company.setCustomers(list);
+		List<Customer> customers = company.getCustomers();
+		customers.add(customer);
+		Set<Company> companies = customer.getCompanies();
+		companies.add(company);
+		customer.setCompanies(companies);
+		company.setCustomers(customers);
+		customerRepository.save(customer);
 		return companyRepository.save(company);
 	}
 
 	@Override
 	public Company deleteCustomer(Company company, Customer customer) {
-		List<Customer> list = company.getCustomers();
-		list.remove(customer);
-		company.setCustomers(list);
+		List<Customer> customers = company.getCustomers();
+		customers.remove(customer);
+		Set<Company> companies = customer.getCompanies();
+		companies.remove(company);
+		customer.setCompanies(companies);
+		company.setCustomers(customers);
+		customerRepository.save(customer);
 		return companyRepository.save(company);
 	}
 

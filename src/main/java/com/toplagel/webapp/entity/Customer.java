@@ -1,6 +1,8 @@
 package com.toplagel.webapp.entity;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -25,6 +27,9 @@ public class Customer {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "customer_roles", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "customers")
+	private Set<Company> companies = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -64,6 +69,14 @@ public class Customer {
 
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Set<Company> getCompanies() {
+		return companies;
+	}
+
+	public void setCompanies(Set<Company> companies) {
+		this.companies = companies;
 	}
 
 	@Override

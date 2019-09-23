@@ -36,12 +36,25 @@ public class CompanyController {
 	public String home(Model model) {
 		Company company = companyService.findByEmail(getActiveLoggedUserEmail());
 		model.addAttribute("listCustomers", company.getCustomers());
-		return "company/welcome";
+		return "welcome";
 	}
 
 	@GetMapping("/company-login")
 	public String loginForCompany(Model model) {
-		return "company-login";
+		System.out.println(getActiveLoggedUserEmail());
+		if (getActiveLoggedUserEmail() == "anonymousUser" || getActiveLoggedUserEmail() == null) {
+			return "company-login";
+		}
+		else {
+			if(getActiveLoggedUserRole() == null || getActiveLoggedUserRole().contains("ROLE_COMPANY")) {
+				Company company = companyService.findByEmail(getActiveLoggedUserEmail());
+				model.addAttribute("listCustomers", company.getCustomers());
+			} else {
+				Customer customer = customerService.findByEmail(getActiveLoggedUserEmail());
+				model.addAttribute("listCompanies", customer.getCompanies());
+			}
+			return "welcome";
+		}
 	}
 
 	@GetMapping("/company-register")
@@ -53,7 +66,7 @@ public class CompanyController {
 	@PostMapping("/company-register")
 	public String registerForCompanyPost(@ModelAttribute Company company) {
 		companyServiceImpl.save(company);
-		return "index";
+		return "company-login";
 	}
 
 	@GetMapping("/add-customer")
@@ -72,7 +85,7 @@ public class CompanyController {
 		} else {
 			companyService.addCustomer(company, customer);
 		}
-		return "redirect:/";
+		return "redirect:/company";
 	}
 
 	@PostMapping("/delete-customer/{id}")
@@ -84,7 +97,7 @@ public class CompanyController {
 		} else {
 			System.out.println("There is no user with this name");
 		}
-		return "redirect:/";
+		return "redirect:/company";
 	}
 
 	public String getActiveLoggedUserEmail() {
@@ -92,9 +105,18 @@ public class CompanyController {
 		if (principal instanceof UserDetails) {
 			return ((UserDetails) principal).getUsername();
 		} else {
-			return principal.toString();
+			return null;
 		}
 
+	}
+	
+	public String getActiveLoggedUserRole() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			return ((UserDetails) principal).getAuthorities().toString();
+		} else {
+			return null;
+		}
 	}
 
 }
