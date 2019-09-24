@@ -1,12 +1,17 @@
 package com.toplagel.webapp.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
 import com.toplagel.webapp.entity.Product;
 
-@Service
 public interface ProductService {
-	Product save(Product product);
+
+	List<Product> getProducts();
+
+	Optional<Product> getProduct(Long id);
+
+	void save(Product product);
 
 	void delete(Long id);
 

@@ -30,10 +30,10 @@ public class CompanyController {
 
 	@Autowired
 	private CompanyService companyService;
-	
+
 	@Autowired
 	private CompanyServiceImpl companyServiceImpl;
-	
+
 	@Autowired
 	private ProductRepository productRepository;
 
@@ -49,9 +49,8 @@ public class CompanyController {
 		System.out.println(getActiveLoggedUserEmail());
 		if (getActiveLoggedUserEmail() == "anonymousUser" || getActiveLoggedUserEmail() == null) {
 			return "company-login";
-		}
-		else {
-			if(getActiveLoggedUserRole() == null || getActiveLoggedUserRole().contains("ROLE_COMPANY")) {
+		} else {
+			if (getActiveLoggedUserRole() == null || getActiveLoggedUserRole().contains("ROLE_COMPANY")) {
 				Company company = companyService.findByEmail(getActiveLoggedUserEmail());
 				model.addAttribute("listCustomers", company.getCustomers());
 			} else {
@@ -104,16 +103,16 @@ public class CompanyController {
 		}
 		return "redirect:/company";
 	}
-	
+
 	@GetMapping("/add-product")
 	public String addProductPage(Model model) {
-		return "company/add-product";		
+		return "company/add-product";
 	}
 
 	@PostMapping
 	public String addProduct(Product product) {
 		productRepository.save(product);
-		return "company/add-product";		
+		return "company/add-product";
 	}
 
 	public String getActiveLoggedUserEmail() {
@@ -125,7 +124,7 @@ public class CompanyController {
 		}
 
 	}
-	
+
 	public String getActiveLoggedUserRole() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
