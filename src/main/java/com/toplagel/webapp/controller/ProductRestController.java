@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.toplagel.webapp.entity.Product;
-import com.toplagel.webapp.service.ProductServiceImpl;
+import com.toplagel.webapp.service.ProductService;
 
 @RestController
 @RequestMapping("/company")
@@ -22,18 +22,18 @@ public class ProductRestController {
 	
 	// Autowire the CustomerService
 	@Autowired
-	private ProductServiceImpl productServiceImpl;
+	private ProductService productService;
 
 	// Add mapping for GET /customers
 	@GetMapping("/products")
 	public List<Product> getCustomers() {
-		return productServiceImpl.getProducts();
+		return productService.getProducts();
 	}
 
 	@GetMapping("/products/{customerId}")
 	public Optional<Product> getCustomer(@PathVariable Long customerId) throws Exception {
 
-		Optional<Product> theCustomer = productServiceImpl.getProduct(customerId);
+		Optional<Product> theCustomer = productService.getProduct(customerId);
 
 		if (theCustomer == null)
 			throw new Exception("Customer id not found - " + customerId);
@@ -49,7 +49,7 @@ public class ProductRestController {
 		// this is force a save of new item ... instead of update
 
 		theCustomer.setId((long) 0);
-		productServiceImpl.save(theCustomer);
+		productService.save(theCustomer);
 
 		return theCustomer;
 	}
@@ -58,7 +58,7 @@ public class ProductRestController {
 	@PutMapping("/products")
 	public Product updateCustomer(@RequestBody Product theCustomer) {
 
-		productServiceImpl.save(theCustomer);
+		productService.save(theCustomer);
 
 		return theCustomer;
 	}
@@ -67,13 +67,13 @@ public class ProductRestController {
 	@DeleteMapping("/products/{customerId}")
 	public String deleteCustomer(@PathVariable Long customerId) throws Exception {
 
-		Optional<Product> tempCustomer = productServiceImpl.getProduct(customerId);
+		Optional<Product> tempCustomer = productService.getProduct(customerId);
 
 		// throw an exception if it is null
 		if (tempCustomer == null)
 			throw new Exception("Customer id not found - " + customerId);
 		
-		productServiceImpl.delete(customerId);
+		productService.delete(customerId);
 
 		return "Deleted customer id - " + customerId;
 	}
