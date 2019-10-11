@@ -122,6 +122,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             auth.authenticationProvider(authenticationProviderForCustomer());
         }
     }
-
-
 }
