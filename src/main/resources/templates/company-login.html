@@ -8,63 +8,51 @@
 
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
-	
-
-	
 </head>
 <body>
 
-	<sec:authorize access="isAuthenticated()" var="anonymous"></sec:authorize>
-	
-	<script type="text/javascript" th:inline="javascript">
-    /*<![CDATA[*/
-    /*[+ [# th:insert="~{../static/js/navbar.js}" /] +]*/
-    /*]]>*/
-	</script>
-	
-	<div id="navbar"></div>
+	<div th:insert="~{fragments/header :: navbar}"></div>
 
-	<div class="container">
-
-
-		<h1>Company Login</h1>
+	<h1>Company Login</h1>
 
 
 
-		<form th:action="${@environment.getProperty('app.company.login')}" method="POST">
-			<div th:if="${param.error}">
-				<div class="alert alert-danger">Invalid username or password.</div>
-			</div>
-			<div th:if="${param.logout}">
-				<div class="alert alert-info">You have been logged out.</div>
-			</div>
-			<div class="form-group">
-				<label for="username">Email</label>: <input type="text"
-					id="username" name="username" class="form-control"
-					autofocus="autofocus" placeholder="Email" />
-			</div>
-			<div class="form-group">
-				<label for="password">Password</label>: <input type="password"
-					id="password" name="password" class="form-control"
-					placeholder="Password" />
-			</div>
-			<div class="form-group">
-				<div class="row">
-					<div class="col-sm-6 col-sm-offset-3">
-						<input type="submit" name="login-submit" id="login-submit"
-							class="form-control btn btn-primary" value="Log In" />
-					</div>
+	<form th:action="${@environment.getProperty('app.company.login')}"
+		method="POST">
+		<div th:if="${param.error}">
+			<div class="alert alert-danger">Invalid username or password.</div>
+		</div>
+		<div th:if="${param.logout}">
+			<div class="alert alert-info">You have been logged out.</div>
+		</div>
+		<div class="form-group">
+			<label for="username">Email</label>: <input type="text" id="username"
+				name="username" class="form-control" autofocus="autofocus"
+				placeholder="Email" />
+		</div>
+		<div class="form-group">
+			<label for="password">Password</label>: <input type="password"
+				id="password" name="password" class="form-control"
+				placeholder="Password" />
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+					<input type="submit" name="login-submit" id="login-submit"
+						class="form-control btn btn-primary" value="Log In" />
 				</div>
 			</div>
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<div class="form-group">
-				<span>New user? <a href="/" th:href="${@environment.getProperty('app.company.register')}">Register
-						here</a></span>
-			</div>
-		</form>
+		</div>
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
+		<div class="form-group">
+			<span>New user? <a href="/"
+				th:href="${@environment.getProperty('app.company.register')}">Register
+					here</a></span>
+		</div>
+	</form>
 
-	</div>
+
 
 	<script type="text/javascript"
 		th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js/}"></script>
