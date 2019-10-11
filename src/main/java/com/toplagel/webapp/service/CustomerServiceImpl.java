@@ -41,15 +41,14 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Customer customer = customerRepository.findByEmail(email);
-        if (customer == null){
-        	System.out.println(email+" user not found");
-            throw new UsernameNotFoundException("Invalid email or password.");
-        }
-        System.out.println(customer.toString());
-        return new org.springframework.security.core.userdetails.User(customer.getEmail(),
-        		customer.getPassword(),
-                mapRolesToAuthorities(customer.getRoles()));
+		Customer customer = customerRepository.findByEmail(email);
+		if (customer == null) {
+			System.out.println(email + " user not found");
+			throw new UsernameNotFoundException("Invalid email or password.");
+		}
+		System.out.println(customer.toString());
+		return new org.springframework.security.core.userdetails.User(customer.getEmail(), customer.getPassword(),
+				mapRolesToAuthorities(customer.getRoles()));
 	}
 
 	@Override
@@ -61,11 +60,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer findById(Long id) {
 		return customerRepository.findById(id).get();
 	}
-	
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRole()))
-                .collect(Collectors.toList());
-    }
+
+	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).collect(Collectors.toList());
+	}
 
 }

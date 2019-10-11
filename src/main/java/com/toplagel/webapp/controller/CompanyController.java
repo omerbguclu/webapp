@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.toplagel.webapp.entity.Company;
 import com.toplagel.webapp.entity.Customer;
 import com.toplagel.webapp.entity.Product;
-import com.toplagel.webapp.repository.ProductRepository;
 import com.toplagel.webapp.service.CompanyService;
 import com.toplagel.webapp.service.CompanyServiceImpl;
 import com.toplagel.webapp.service.CustomerService;
+import com.toplagel.webapp.service.ProductService;
 
 @Controller
 @RequestMapping("/company")
@@ -35,11 +35,12 @@ public class CompanyController {
 	private CompanyServiceImpl companyServiceImpl;
 
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductService productService;
 
 	@GetMapping
 	public String home(Model model) {
 		Company company = companyService.findByEmail(getActiveLoggedUserEmail());
+		model.addAttribute("productList", productService.getProducts());
 		model.addAttribute("listCustomers", company.getCustomers());
 		return "welcome";
 	}
@@ -52,6 +53,7 @@ public class CompanyController {
 		} else {
 			if (getActiveLoggedUserRole() == null || getActiveLoggedUserRole().contains("ROLE_COMPANY")) {
 				Company company = companyService.findByEmail(getActiveLoggedUserEmail());
+				model.addAttribute("productList", productService.getProducts());
 				model.addAttribute("listCustomers", company.getCustomers());
 			} else {
 				Customer customer = customerService.findByEmail(getActiveLoggedUserEmail());
@@ -106,13 +108,20 @@ public class CompanyController {
 
 	@GetMapping("/add-product")
 	public String addProductPage(Model model) {
+		model.addAttribute("product", new Product());
 		return "company/add-product";
 	}
 
-	@PostMapping
+	@RequestMapping("/add-product/save")
 	public String addProduct(Product product) {
-		productRepository.save(product);
+		productService.save(product);
 		return "company/add-product";
+	}
+
+	@RequestMapping("/delete-product/{id}")
+	public String deleteThisProduct(@PathVariable(name = "id") Long id) {
+		productService.delete(id);
+		return "redirect:/company";
 	}
 
 	public String getActiveLoggedUserEmail() {

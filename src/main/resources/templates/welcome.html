@@ -24,7 +24,8 @@
 		<p>
 			Welcome <span sec:authentication="principal.username">User</span>
 		</p>
-
+		
+		<div th:insert="~{fragments/product :: company-products}"></div>
 		<div th:insert="~{fragments/welcome-for-customer :: welcome-customer}"></div>
 		<div th:insert="~{fragments/welcome-for-company :: welcome-company}"></div>
 	</div>

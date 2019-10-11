@@ -1,6 +1,5 @@
 package com.toplagel.webapp.entity;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,12 +18,12 @@ public class Product {
 	private Long id;
 	private String title;
 	private String photo;
-	private BigDecimal price;
+	private Long price;
 	private String category;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "products")
 	private Set<Company> companies = new HashSet<>();
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -49,11 +48,11 @@ public class Product {
 		this.photo = photo;
 	}
 
-	public BigDecimal getPrice() {
+	public Long getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
 
@@ -63,6 +62,12 @@ public class Product {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", title=" + title + ", photo=" + photo + ", price=" + price + ", category="
+				+ category + ", companies=" + companies + "]";
 	}
 
 }

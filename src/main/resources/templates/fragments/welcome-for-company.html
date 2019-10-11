@@ -12,10 +12,10 @@
 <body>
 
 	<div sec:authorize="hasRole('ROLE_COMPANY')" th:fragment="welcome-company">
-		<a href="/company/add-customer">Add Customer</a>
+
 
 		<h1>My Customer List</h1>
-		<br /> <br />
+		<br />
 		<table border="1">
 			<thead>
 				<tr>
@@ -37,6 +37,9 @@
 				</tr>
 			</tbody>
 		</table>
+		<br> <a href="/company/add-customer" class="btn btn-outline-primary "
+			role="button" aria-pressed="true">Add Customer</a>
+			<br>
 
 	</div>
 
