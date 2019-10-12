@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<link rel="stylesheet" type="text/css"
-	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 
 
@@ -22,18 +20,18 @@
 
 	<div class="col-md-6 col-md-offset-3" style="margin: auto">
 		<br /> <br />
-		<h1>Registration</h1>
-		<form th:action="@{/company/add-product/save}" th:object="${product}"
-			method="post">
-			<div class="form-group">
-				<label for="exampleInputName1">Product title:</label> <input type="text"
-					th:field="*{title}" class="form-control" id="exampleInputName1"
-					placeholder="Enter product title" />
+		<h1>Add Product</h1>
+		<form th:action="@{/company/add-product/save?success}" th:object="${product}" method="post">
+			<div th:if="${param.success}">
+				<div class="alert alert-info">Product added.</div>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputName1">Product price:</label> <input type="text"
-					th:field="*{price}" class="form-control" id="exampleInputName1"
-					placeholder="Enter product price">
+				<label for="exampleInputName1">Product title:</label> <input type="text" th:field="*{title}" class="form-control"
+					id="exampleInputName1" placeholder="Enter product title" />
+			</div>
+			<div class="form-group">
+				<label for="exampleInputName1">Product price:</label> <input type="text" th:field="*{price}" class="form-control"
+					id="exampleInputName1" placeholder="Enter product price">
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
@@ -42,8 +40,7 @@
 
 
 	<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-	<script type="text/javascript"
-		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

@@ -1,7 +1,6 @@
 package com.toplagel.webapp.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,56 +25,56 @@ public class ProductRestController {
 
 	// Add mapping for GET /customers
 	@GetMapping("/products")
-	public List<Product> getCustomers() {
+	public List<Product> getProducts() {
 		return productService.getProducts();
 	}
 
 	@GetMapping("/products/{customerId}")
-	public Optional<Product> getCustomer(@PathVariable Long customerId) throws Exception {
+	public Product getProduct(@PathVariable Long productId) throws Exception {
 
-		Optional<Product> theCustomer = productService.getProduct(customerId);
+		Product product = productService.findById(productId);
 
-		if (theCustomer == null)
-			throw new Exception("Customer id not found - " + customerId);
+		if (product == null)
+			throw new Exception("Product id not found - " + productId);
 
-		return theCustomer;
+		return product;
 	}
 
 	// Add mapping for POST /customers - add new customer
 	@PostMapping("/products")
-	public Product addCustomer(@RequestBody Product theCustomer) {
+	public Product addCustomer(@RequestBody Product product) {
 
 		// also just in case the pass an id in JSON ... set id to 0
 		// this is force a save of new item ... instead of update
 
-		theCustomer.setId((long) 0);
-		productService.save(theCustomer);
+		product.setId((long) 0);
+		productService.save(product);
 
-		return theCustomer;
+		return product;
 	}
 
 	// Add mapping for PUT /customers - update existing customer
 	@PutMapping("/products")
-	public Product updateCustomer(@RequestBody Product theCustomer) {
+	public Product updateCustomer(@RequestBody Product product) {
 
-		productService.save(theCustomer);
+		productService.save(product);
 
-		return theCustomer;
+		return product;
 	}
 
 	// Add mapping for DELETE /customers/{customerId} - delete existing customer
 	@DeleteMapping("/products/{customerId}")
-	public String deleteCustomer(@PathVariable Long customerId) throws Exception {
+	public String deleteCustomer(@PathVariable Long productId) throws Exception {
 
-		Optional<Product> tempCustomer = productService.getProduct(customerId);
+		Product product = productService.findById(productId);
 
 		// throw an exception if it is null
-		if (tempCustomer == null)
-			throw new Exception("Customer id not found - " + customerId);
+		if (product == null)
+			throw new Exception("Customer id not found - " + productId);
 		
-		productService.delete(customerId);
+		productService.delete(productId);
 
-		return "Deleted customer id - " + customerId;
+		return "Deleted customer id - " + productId;
 	}
 
 }

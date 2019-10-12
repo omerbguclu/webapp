@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<link rel="stylesheet" type="text/css"
-	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
 </head>
 <body>
 
@@ -17,8 +15,7 @@
 		<div id="productTable" th:if="${not #lists.isEmpty(productList)}">
 			<form class="form-horizontal" role="form">
 				<div class="col-md-12" style="overflow: auto; margin-top: 5px;">
-					<table data-toggle="table" class=" table table-hover"
-						style="border: 1px; max-width: 750px; height: 5px;">
+					<table data-toggle="table" class=" table table-hover" style="border: 1px; max-width: 750px; height: 5px;">
 						<thead>
 							<tr>
 								<th>Title</th>
@@ -28,11 +25,12 @@
 
 						<tbody>
 							<tr th:each="product : ${productList}">
-								<td th:next="${product.title}">Title</td>
-								<td th:next="${product.price}">Price<a
-									th:href="@{'/company/delete-product/' + ${product.id}}"
-									class="btn btn-outline-danger float-right " role="button"
-									aria-pressed="true">Delete</a></td>
+								<td>[[${product.title}]]</td>
+								<td>[[${product.price}]]
+								<a th:href="@{'/company/delete-product/' + ${product.id}}"
+									class="btn btn-outline-danger float-right btn-sm" role="button" aria-pressed="true">Delete</a>
+								<a th:href="@{'/company/edit-product/' + ${product.id}}"
+									class="btn btn-outline-primary float-right btn-sm" role="button" aria-pressed="true">Edit</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -40,13 +38,11 @@
 			</form>
 		</div>
 
-		<br> <a href="/company/add-product" class="btn btn-outline-primary "
-			role="button" aria-pressed="true">Add Product</a> <br> <br>
+		<br> <a href="/company/add-product" class="btn btn-outline-primary " role="button" aria-pressed="true">Add
+			Product</a> <br> <br>
 	</div>
 
-	<script type="text/javascript"
-		th:src="@{/webjars/jquery/dist/3.2.1/jquery.min.js/}"></script>
-	<script type="text/javascript"
-		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/jquery/dist/3.2.1/jquery.min.js/}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>
