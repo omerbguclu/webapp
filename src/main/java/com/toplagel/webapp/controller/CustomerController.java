@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.toplagel.webapp.entity.Company;
 import com.toplagel.webapp.entity.Customer;
-import com.toplagel.webapp.service.CompanyService;
 import com.toplagel.webapp.service.CustomerService;
 import com.toplagel.webapp.service.CustomerServiceImpl;
 
@@ -25,9 +23,6 @@ public class CustomerController {
 	
 	@Autowired
 	private CustomerService customerService;
-	
-	@Autowired
-	private CompanyService companyService;
 	
 	@GetMapping
 	public String home(Model model) {
@@ -43,15 +38,13 @@ public class CustomerController {
 			return "customer-login";
 		}
 		else {
-			if(getActiveLoggedUserRole() == null || getActiveLoggedUserRole().contains("ROLE_COMPANY")) {
-				Company company = companyService.findByEmail(getActiveLoggedUserEmail());
-				model.addAttribute("listCustomers", company.getCustomers());
+			if(getActiveLoggedUserRole() == null || getActiveLoggedUserRole().contains("ROLE_COMPANY")) {				
+				return "redirect:/company";
 			}
 			else{
-				Customer customer = customerService.findByEmail(getActiveLoggedUserEmail());
-				model.addAttribute("listCompanies", customer.getCompanies());
+				return "redirect:/customer";
 			}
-			return "welcome";
+			
 		}
 	}
 	@GetMapping("/customer-register")

@@ -53,14 +53,10 @@ public class CompanyController {
 			return "company-login";
 		} else {
 			if (getActiveLoggedUserRole() == null || getActiveLoggedUserRole().contains("ROLE_COMPANY")) {
-				Company company = companyService.findByEmail(getActiveLoggedUserEmail());
-				model.addAttribute("productList", productService.getProducts());
-				model.addAttribute("listCustomers", company.getCustomers());
+				return "redirect:/company";
 			} else {
-				Customer customer = customerService.findByEmail(getActiveLoggedUserEmail());
-				model.addAttribute("listCompanies", customer.getCompanies());
-			}
-			return "welcome";
+				return "redirect:/customer";
+			}			
 		}
 	}
 
