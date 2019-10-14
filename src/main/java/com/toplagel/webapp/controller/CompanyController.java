@@ -42,6 +42,7 @@ public class CompanyController {
 		Company company = companyService.findByEmail(getActiveLoggedUserEmail());
 		model.addAttribute("productList", productService.getProducts());
 		model.addAttribute("listCustomers", company.getCustomers());
+		model.addAttribute("productModal", new Product());
 		return "welcome";
 	}
 
@@ -123,7 +124,14 @@ public class CompanyController {
 		productService.delete(id);
 		return "redirect:/company";
 	}
-
+	
+	@RequestMapping("update-product/{id}")
+	public String updateThisProduct(@PathVariable(name = "id") Long id,Product product) {
+		product.setId(id);
+		productService.save(product);
+		return "redirect:/company";
+		
+	}
 	public String getActiveLoggedUserEmail() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
