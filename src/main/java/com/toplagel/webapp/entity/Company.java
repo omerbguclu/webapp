@@ -86,6 +86,14 @@ public class Company {
 		this.roles = roles;
 	}
 
+	public Collection<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Collection<Product> products) {
+		this.products = products;
+	}
+
 	@Override
 	public String toString() {
 		return "Company [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", roles="

@@ -1,8 +1,6 @@
 package com.toplagel.webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +14,14 @@ import com.toplagel.webapp.service.CustomerServiceImpl;
 
 @Controller
 @RequestMapping("/customer")
-public class CustomerController {
+public class CustomerController extends ControllerCommon {
 
 	@Autowired
 	private CustomerServiceImpl customerServiceImpl;
-	
+
 	@Autowired
 	private CustomerService customerService;
-	
+
 	@GetMapping
 	public String home(Model model) {
 		Customer customer = customerService.findByEmail(getActiveLoggedUserEmail());
@@ -36,17 +34,15 @@ public class CustomerController {
 		System.out.println(getActiveLoggedUserEmail());
 		if (getActiveLoggedUserEmail() == "anonymousUser" || getActiveLoggedUserEmail() == null) {
 			return "customer-login";
-		}
-		else {
-			if(getActiveLoggedUserRole() == null || getActiveLoggedUserRole().contains("ROLE_COMPANY")) {				
+		} else {
+			if (getActiveLoggedUserRole() == null || getActiveLoggedUserRole().contains("ROLE_COMPANY")) {
 				return "redirect:/company";
-			}
-			else{
+			} else {
 				return "redirect:/customer";
 			}
-			
 		}
 	}
+
 	@GetMapping("/customer-register")
 	public String registerForCustomer(Model model) {
 		model.addAttribute("customer", new Customer());
@@ -57,25 +53,6 @@ public class CustomerController {
 	public String registerForCustomerPost(@ModelAttribute Customer customer) {
 		customerServiceImpl.save(customer);
 		return "index";
-	}
-
-	public String getActiveLoggedUserEmail() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (principal instanceof UserDetails) {
-			return ((UserDetails) principal).getUsername();
-		} else {
-			return principal.toString();
-		}
-
-	}
-	
-	public String getActiveLoggedUserRole() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (principal instanceof UserDetails) {
-			return ((UserDetails) principal).getAuthorities().toString();
-		} else {
-			return null;
-		}
 	}
 
 }

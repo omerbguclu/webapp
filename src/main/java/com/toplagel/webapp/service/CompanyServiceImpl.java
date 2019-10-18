@@ -16,9 +16,11 @@ import org.springframework.stereotype.Service;
 
 import com.toplagel.webapp.entity.Company;
 import com.toplagel.webapp.entity.Customer;
+import com.toplagel.webapp.entity.Product;
 import com.toplagel.webapp.entity.Role;
 import com.toplagel.webapp.repository.CompanyRepository;
 import com.toplagel.webapp.repository.CustomerRepository;
+import com.toplagel.webapp.repository.ProductRepository;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -28,6 +30,9 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Autowired
 	private CustomerRepository customerRepository;
+	
+	@Autowired
+	private ProductRepository productRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -89,4 +94,21 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyRepository.save(company);
 	}
 
+	@Override
+	public Company addProduct(Company company,Product product) {
+		Collection<Product> products = company.getProducts();
+		products.add(product);
+		company.setProducts(products);
+		productRepository.save(product);
+		return companyRepository.save(company);
+	}
+	
+	@Override
+	public Company deleteProduct(Company company,Product product) {
+		Collection<Product> products = company.getProducts();
+		products.remove(product);
+		company.setProducts(products);
+		productRepository.save(product);
+		return companyRepository.save(company);
+	}
 }
