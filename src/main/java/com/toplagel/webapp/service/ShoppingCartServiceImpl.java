@@ -1,5 +1,6 @@
 package com.toplagel.webapp.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -29,6 +30,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		return shoppingCart.getProducts().stream()
 				.map(Product::getPrice)
 				.reduce(Long::sum).get();
+	}
+	
+	public long updateProductQuantity(ShoppingCart shoppingCart,Product product,int quantity) {
+		List<Product> products = shoppingCart.getProducts();
+		int oldQuantity = (int)products.stream().filter(x -> x.equals(product)).count();
+		products = Collections.nCopies(quantity, product);
+		/*while(oldQuantity++ < quantity)
+			products.add(product);*/
+		return (int)products.stream().filter(x -> x.equals(product)).count();
 	}
 
 }

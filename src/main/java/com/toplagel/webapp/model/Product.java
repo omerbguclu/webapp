@@ -20,6 +20,7 @@ public class Product {
 	private String photo;
 	private Long price;
 	private String category;
+	private int quantity;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "products")
 	private Set<Company> companies = new HashSet<>();
@@ -62,6 +63,14 @@ public class Product {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	@Override

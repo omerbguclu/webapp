@@ -23,6 +23,7 @@ public class Customer {
 	private String name;
 	private String email;
 	private String password;
+	private ShoppingCart shoppingCart;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "customer_roles", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
@@ -77,6 +78,14 @@ public class Customer {
 
 	public void setCompanies(Set<Company> companies) {
 		this.companies = companies;
+	}
+
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
+	}
+
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
 	}
 
 	@Override

@@ -27,14 +27,12 @@ public class ServiceTest {
 
 		shoppingCartService.addProductToCart(shoppingCart, a);
 		shoppingCartService.addProductToCart(shoppingCart, b);
-		shoppingCartService.addProductToCart(shoppingCart, b);
 		shoppingCartService.addProductToCart(shoppingCart, c);
 
 		System.out.println(shoppingCartService.calculateTotalPriceOfCart(shoppingCart));
-		
-		shoppingCartService.deleteProductFromCart(shoppingCart, a);
-		
+		System.out.println(shoppingCartService.updateProductQuantity(shoppingCart, b, 3));
 		System.out.println(shoppingCartService.calculateTotalPriceOfCart(shoppingCart));
+
 	}
 
 }
