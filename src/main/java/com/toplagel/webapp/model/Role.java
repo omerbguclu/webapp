@@ -1,4 +1,4 @@
-package com.toplagel.webapp.entity;
+package com.toplagel.webapp.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import com.toplagel.webapp.entity.Customer;
+import com.toplagel.webapp.model.Customer;
 
 public interface CustomerService extends UserDetailsService{
 	

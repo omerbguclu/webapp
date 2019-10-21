@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.toplagel.webapp.entity.Company;
-import com.toplagel.webapp.entity.Customer;
+import com.toplagel.webapp.model.Company;
+import com.toplagel.webapp.model.Customer;
 import com.toplagel.webapp.service.CompanyService;
 import com.toplagel.webapp.service.CustomerService;
 

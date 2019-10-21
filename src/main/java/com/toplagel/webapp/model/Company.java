@@ -1,8 +1,7 @@
-package com.toplagel.webapp.entity;
+package com.toplagel.webapp.model;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,21 +14,29 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Customer {
+public class Company {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String name;
+	
 	private String email;
+	
 	private String password;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "customer_roles", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-	private Collection<Role> roles;
+	@ManyToMany
+	@JoinTable(name = "COMPANY_CUSTOMERS", joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"))
+	private List<Customer> customers;
 
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "customers")
-	private Set<Company> companies = new HashSet<>();
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "company_roles", joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	private Collection<Role> roles;
+	
+	@ManyToMany
+	@JoinTable(name = "company_products", joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
+	private Collection<Product> products;
 
 	public Long getId() {
 		return id;
@@ -63,6 +70,14 @@ public class Customer {
 		this.password = password;
 	}
 
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
+	}
+
 	public Collection<Role> getRoles() {
 		return roles;
 	}
@@ -71,17 +86,17 @@ public class Customer {
 		this.roles = roles;
 	}
 
-	public Set<Company> getCompanies() {
-		return companies;
+	public Collection<Product> getProducts() {
+		return products;
 	}
 
-	public void setCompanies(Set<Company> companies) {
-		this.companies = companies;
+	public void setProducts(Collection<Product> products) {
+		this.products = products;
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", roles="
+		return "Company [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", roles="
 				+ roles + "]";
 	}
 

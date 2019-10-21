@@ -2,9 +2,9 @@ package com.toplagel.webapp.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import com.toplagel.webapp.entity.Company;
-import com.toplagel.webapp.entity.Customer;
-import com.toplagel.webapp.entity.Product;
+import com.toplagel.webapp.model.Company;
+import com.toplagel.webapp.model.Customer;
+import com.toplagel.webapp.model.Product;
 
 public interface CompanyService extends UserDetailsService{
 	

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.toplagel.webapp.entity.Customer;
+import com.toplagel.webapp.model.Customer;
 import com.toplagel.webapp.service.CustomerService;
 import com.toplagel.webapp.service.CustomerServiceImpl;
 

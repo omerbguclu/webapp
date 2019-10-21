@@ -2,7 +2,7 @@ package com.toplagel.webapp.service;
 
 import java.util.List;
 
-import com.toplagel.webapp.entity.Product;
+import com.toplagel.webapp.model.Product;
 
 public interface ProductService {
 

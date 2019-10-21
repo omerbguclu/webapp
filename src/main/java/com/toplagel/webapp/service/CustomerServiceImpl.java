@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.toplagel.webapp.entity.Customer;
-import com.toplagel.webapp.entity.Role;
+import com.toplagel.webapp.model.Customer;
+import com.toplagel.webapp.model.Role;
 import com.toplagel.webapp.repository.CustomerRepository;
 
 @Service

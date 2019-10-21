@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.toplagel.webapp.entity.Product;
+import com.toplagel.webapp.model.Product;
 import com.toplagel.webapp.service.ProductService;
 
 @RestController

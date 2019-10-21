@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.toplagel.webapp.entity.Company;
-import com.toplagel.webapp.entity.Product;
+import com.toplagel.webapp.model.Company;
+import com.toplagel.webapp.model.Product;
 import com.toplagel.webapp.service.CompanyService;
 
 @Controller
