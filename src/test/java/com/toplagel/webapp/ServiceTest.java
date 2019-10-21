@@ -19,20 +19,29 @@ public class ServiceTest {
 	public void shoppingCartSumTest() {
 		ShoppingCart shoppingCart = new ShoppingCart();
 		Product a = new Product();
-		a.setPrice(10L);
+		a.setPrice(10L);a.setTitle("a");
 		Product b = new Product();
-		b.setPrice((long) 25);
+		b.setPrice((long) 25);b.setTitle("b");
 		Product c = new Product();
-		c.setPrice((long) 30);
-
-		shoppingCartService.addProductToCart(shoppingCart, a);
-		shoppingCartService.addProductToCart(shoppingCart, b);
-		shoppingCartService.addProductToCart(shoppingCart, c);
-
+		c.setPrice((long) 30);c.setTitle("c");
+		Product d = new Product();
+		d.setPrice((long) 45);d.setTitle("d");
+		
+		shoppingCart.getProducts().put(a, 1);
+		shoppingCart.getProducts().put(b, 1);
+		shoppingCart.getProducts().put(c, 1);
+		
+		shoppingCartService.addProductToCart(shoppingCart, c, 1);
+		shoppingCartService.addProductToCart(shoppingCart, a, 3);
+		shoppingCartService.addProductToCart(shoppingCart, b, 2);
+		//shoppingCartService.addProductToCart(shoppingCart, d, 2);
+		
+		shoppingCartService.print(shoppingCart);
+		
+		shoppingCartService.updateProductInCart(shoppingCart, a, 10);
+		System.out.println("/*/*/*/*/*/*/t");
+		shoppingCartService.print(shoppingCart);
 		System.out.println(shoppingCartService.calculateTotalPriceOfCart(shoppingCart));
-		System.out.println(shoppingCartService.updateProductQuantity(shoppingCart, b, 3));
-		System.out.println(shoppingCartService.calculateTotalPriceOfCart(shoppingCart));
-
 	}
 
 }

@@ -1,18 +1,18 @@
 package com.toplagel.webapp.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ShoppingCart {
 
-	private List<Product> products = new ArrayList<>();
+	private Map<Product, Integer> products = new HashMap<Product, Integer>();
 	private Integer totalPrice;
 
-	public List<Product> getProducts() {
+	public Map<Product, Integer> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(Map<Product, Integer> products) {
 		this.products = products;
 	}
 
