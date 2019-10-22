@@ -11,34 +11,34 @@ import com.toplagel.webapp.model.ShoppingCart;
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	@Override
-	public void addProductToCart(ShoppingCart shoppingCart, Product product, Integer quantity) {
+	public ShoppingCart addProductToCart(ShoppingCart shoppingCart, Product product, Integer quantity) {
 		Map<Product, Integer> products = shoppingCart.getProducts();
 		products.put(product, products.containsKey(product) ? products.get(product) + quantity : 1);
 		shoppingCart.setProducts(products);
+		return shoppingCart;
 	}
 
 	@Override
-	public void deleteProductFromCart(ShoppingCart shoppingCart, Product product) {
+	public ShoppingCart deleteProductFromCart(ShoppingCart shoppingCart, Product product) {
 		Map<Product, Integer> products = shoppingCart.getProducts();
 		products.remove(product);
 		shoppingCart.setProducts(products);
+		return shoppingCart;
 	}
 
 	@Override
-	public void updateProductInCart(ShoppingCart shoppingCart, Product product, Integer quantity) {
+	public ShoppingCart updateProductInCart(ShoppingCart shoppingCart, Product product, Integer quantity) {
 		Map<Product, Integer> products = shoppingCart.getProducts();
 		if (products.containsKey(product))
 			products.put(product, quantity);
 		else
 			System.out.println("There is no product with this name");
 		shoppingCart.setProducts(products);
+		return shoppingCart;
 	}
 
 	@Override
 	public Long calculateTotalPriceOfCart(ShoppingCart shoppingCart) {
-		// Optional<Long> totalPrice =
-		// shoppingCart.getProducts().entrySet().stream().map(x->x.getKey().getPrice() *
-		// x.getValue()).reduce(Long::sum);
 		return shoppingCart.getProducts().entrySet().stream().map(x -> x.getKey().getPrice() * x.getValue()).reduce(0L,
 				Long::sum);
 	}

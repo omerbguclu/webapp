@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Customer {
@@ -23,7 +24,6 @@ public class Customer {
 	private String name;
 	private String email;
 	private String password;
-	private ShoppingCart shoppingCart;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "customer_roles", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
@@ -31,6 +31,9 @@ public class Customer {
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "customers")
 	private Set<Company> companies = new HashSet<>();
+
+	@OneToOne(mappedBy = "customer")
+	private ShoppingCart shoppingCart;
 
 	public Long getId() {
 		return id;

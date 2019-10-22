@@ -1,5 +1,8 @@
 package com.toplagel.webapp.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.toplagel.webapp.model.Customer;
+import com.toplagel.webapp.model.Product;
 import com.toplagel.webapp.service.CustomerService;
 import com.toplagel.webapp.service.CustomerServiceImpl;
 
@@ -25,7 +29,11 @@ public class CustomerController extends ControllerCommon {
 	@GetMapping
 	public String home(Model model) {
 		Customer customer = customerService.findByEmail(getActiveLoggedUserEmail());
+		Collection<Product> products = new ArrayList<Product>(); 
+		customer.getCompanies().forEach(x->x.getProducts().forEach(e->products.add(e)));
 		model.addAttribute("listCompanies", customer.getCompanies());
+		model.addAttribute("listProducts", products);
+		model.addAttribute("listShoppingCartItems", products);
 		return "welcome";
 	}
 
