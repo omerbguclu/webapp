@@ -59,6 +59,8 @@
 				<tr th:each="item : ${listShoppingCartItems}">
 					<td th:text="${item.getKey().title}">Name</td>
 					<td th:text="${item.getValue()}">Email</td>
+					<td><a th:href="@{'/customer/delete-product-from-cart/' + ${item.getKey().id}}"
+						class="btn btn-outline-danger float-right btn-sm" role="button" aria-pressed="true">Delete From Cart</a></td>
 				</tr>
 			</tbody>
 		</table>

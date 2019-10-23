@@ -20,9 +20,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	@Override
 	public ShoppingCart deleteProductFromCart(ShoppingCart shoppingCart, Product product) {
-		Map<Product, Integer> products = shoppingCart.getProducts();
-		products.remove(product);
-		shoppingCart.setProducts(products);
+		Map<Product, Integer> cartItems = shoppingCart.getProducts();
+		cartItems.remove(product);
+		shoppingCart.setProducts(cartItems);
 		return shoppingCart;
 	}
 
