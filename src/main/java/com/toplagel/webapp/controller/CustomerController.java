@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.toplagel.webapp.model.Customer;
 import com.toplagel.webapp.model.Product;
+import com.toplagel.webapp.model.ShoppingCart;
 import com.toplagel.webapp.service.CustomerService;
 import com.toplagel.webapp.service.CustomerServiceImpl;
 
@@ -33,7 +34,7 @@ public class CustomerController extends ControllerCommon {
 		customer.getCompanies().forEach(x->x.getProducts().forEach(e->products.add(e)));
 		model.addAttribute("listCompanies", customer.getCompanies());
 		model.addAttribute("listProducts", products);
-		model.addAttribute("listShoppingCartItems", products);
+		model.addAttribute("listShoppingCartItems", customer.getShoppingCart().getProducts().keySet());
 		return "welcome";
 	}
 
@@ -59,6 +60,7 @@ public class CustomerController extends ControllerCommon {
 
 	@PostMapping("/customer-register")
 	public String registerForCustomerPost(@ModelAttribute Customer customer) {
+		customer.setShoppingCart(new ShoppingCart());
 		customerServiceImpl.save(customer);
 		return "index";
 	}

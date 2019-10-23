@@ -23,9 +23,9 @@ public class ShoppingCart {
 	private Map<Product, Integer> products = new HashMap<Product, Integer>();
 	private Integer totalPrice;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	/*@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
-	private Customer customer;
+	private Customer customer;*/
 
 	public Map<Product, Integer> getProducts() {
 		return products;
@@ -43,12 +43,12 @@ public class ShoppingCart {
 		this.totalPrice = totalPrice;
 	}
 
-	public Customer getCustomer() {
+	/*public Customer getCustomer() {
 		return customer;
 	}
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
-	}
+	}*/
 
 }

@@ -32,7 +32,8 @@ public class Customer {
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "customers")
 	private Set<Company> companies = new HashSet<>();
 
-	@OneToOne(mappedBy = "customer")
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
 	private ShoppingCart shoppingCart;
 
 	public Long getId() {
