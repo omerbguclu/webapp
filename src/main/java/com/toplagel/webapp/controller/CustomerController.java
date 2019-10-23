@@ -15,14 +15,10 @@ import com.toplagel.webapp.model.Customer;
 import com.toplagel.webapp.model.Product;
 import com.toplagel.webapp.model.ShoppingCart;
 import com.toplagel.webapp.service.CustomerService;
-import com.toplagel.webapp.service.CustomerServiceImpl;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController extends ControllerCommon {
-
-	@Autowired
-	private CustomerServiceImpl customerServiceImpl;
 
 	@Autowired
 	private CustomerService customerService;
@@ -30,11 +26,11 @@ public class CustomerController extends ControllerCommon {
 	@GetMapping
 	public String home(Model model) {
 		Customer customer = customerService.findByEmail(getActiveLoggedUserEmail());
-		Collection<Product> products = new ArrayList<Product>(); 
-		customer.getCompanies().forEach(x->x.getProducts().forEach(e->products.add(e)));
+		Collection<Product> products = new ArrayList<Product>();
+		customer.getCompanies().forEach(x -> x.getProducts().forEach(e -> products.add(e)));
 		model.addAttribute("listCompanies", customer.getCompanies());
 		model.addAttribute("listProducts", products);
-		model.addAttribute("listShoppingCartItems", customer.getShoppingCart().getProducts().keySet());
+		model.addAttribute("listShoppingCartItems", customer.getShoppingCart().getProducts());
 		return "welcome";
 	}
 
@@ -61,7 +57,7 @@ public class CustomerController extends ControllerCommon {
 	@PostMapping("/customer-register")
 	public String registerForCustomerPost(@ModelAttribute Customer customer) {
 		customer.setShoppingCart(new ShoppingCart());
-		customerServiceImpl.save(customer);
+		customerService.save(customer);
 		return "index";
 	}
 

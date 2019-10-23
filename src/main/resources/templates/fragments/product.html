@@ -31,8 +31,6 @@
 									role="button" aria-pressed="true">Delete</a>
 									<button type="button" class="btn btn-outline-primary float-right btn-sm" data-toggle="modal"
 										th:value="${product.id}" th:id="modalButton + ${product.id}" data-target="#editWindow">Edit</button>
-									<a	th:href="@{'/company/add-product-to-cart/' + ${product.id}}" class="btn btn-outline-info float-right btn-sm"
-									role="button" aria-pressed="true">Add To Cart</a>
 								</td>
 							</tr>
 						</tbody>

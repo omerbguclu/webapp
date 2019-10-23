@@ -21,8 +21,14 @@
 	<br>
 	<br>
 	<div class="container">
+		<div sec:authorize="hasRole('ROLE_COMPANY')">
 		<h1>COMPANY WELCOME PAGE</h1>
-
+		</div>
+		
+		<div sec:authorize="hasRole('ROLE_CUSTOMER')">
+		<h1>CUSTOMER WELCOME PAGE</h1>
+		</div>
+		
 		<p>
 			Welcome <span sec:authentication="principal.username">User</span>
 		</p>

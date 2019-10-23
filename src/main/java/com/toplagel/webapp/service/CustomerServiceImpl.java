@@ -33,7 +33,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void save(Customer customer) {
-
 		customer.setPassword(bCryptPasswordEncoderForCustomer.encode(customer.getPassword()));
 		customer.setRoles(Arrays.asList(new Role("ROLE_CUSTOMER")));
 		customerRepository.save(customer);
@@ -63,6 +62,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).collect(Collectors.toList());
+	}
+
+	@Override
+	public Customer update(Customer customer) {
+		return customerRepository.save(customer);
 	}
 
 }

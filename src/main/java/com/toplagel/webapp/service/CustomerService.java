@@ -15,5 +15,7 @@ public interface CustomerService extends UserDetailsService{
 	public List<Customer> getCustomers();
 	
 	Customer findById(Long id);
+	
+	Customer update(Customer customer);
 
 }
