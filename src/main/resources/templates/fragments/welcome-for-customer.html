@@ -1,74 +1,58 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div sec:authorize="hasRole('ROLE_CUSTOMER')" th:fragment="welcome-customer">
+	<h1>My Companies</h1>
+	<br /> <br />
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="company : ${listCompanies}">
+				<td th:text="${company.name}">Name</td>
+				<td th:text="${company.email}">Email</td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<h1>Companies Products</h1>
+	<br /> <br />
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="product : ${listProducts}">
+				<td th:text="${product.title}">Name</td>
+				<td th:text="${product.price}">Email</td>
+				<td><a th:href="@{'/customer/add-product-to-cart/' + ${product.id}}"
+					class="btn btn-outline-info float-right btn-sm" role="button" aria-pressed="true">Add To Cart</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<h1>Shopping Cart</h1>
+	<br /> <br />
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Product</th>
+				<th>Quantity</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="item : ${listShoppingCartItems}">
+				<td th:text="${item.getKey().title}">Name</td>
+				<td th:text="${item.getValue()}">Email</td>
+				<td><a th:href="@{'/customer/delete-product-from-cart/' + ${item.getKey().id}}"
+					class="btn btn-outline-danger float-right btn-sm" role="button" aria-pressed="true">Delete From Cart</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
 
-<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
-</head>
-<body>
-
-	<div sec:authorize="hasRole('ROLE_CUSTOMER')" th:fragment="welcome-customer">
-		<h1>My Companies</h1>
-		<br /> <br />
-		<table border="1">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Email</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="company : ${listCompanies}">
-					<td th:text="${company.name}">Name</td>
-					<td th:text="${company.email}">Email</td>
-				</tr>
-			</tbody>
-		</table>
-		<br>
-		<h1>Companies Products</h1>
-		<br /> <br />
-		<table border="1">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Email</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="product : ${listProducts}">
-					<td th:text="${product.title}">Name</td>
-					<td th:text="${product.price}">Email</td>
-					<td><a th:href="@{'/customer/add-product-to-cart/' + ${product.id}}"
-						class="btn btn-outline-info float-right btn-sm" role="button" aria-pressed="true">Add To Cart</a></td>
-				</tr>
-			</tbody>
-		</table>
-		<br>
-		<h1>Shopping Cart</h1>
-		<br /> <br />
-		<table border="1">
-			<thead>
-				<tr>
-					<th>Product</th>
-					<th>Quantity</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="item : ${listShoppingCartItems}">
-					<td th:text="${item.getKey().title}">Name</td>
-					<td th:text="${item.getValue()}">Email</td>
-					<td><a th:href="@{'/customer/delete-product-from-cart/' + ${item.getKey().id}}"
-						class="btn btn-outline-danger float-right btn-sm" role="button" aria-pressed="true">Delete From Cart</a></td>
-				</tr>
-			</tbody>
-		</table>
-		<br>
-
-	</div>
-
-	<script type="text/javascript" th:src="@{/webjars/jquery/dist/3.2.1/jquery.min.js/}"></script>
-	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
-</body>
-</html>
+</div>
