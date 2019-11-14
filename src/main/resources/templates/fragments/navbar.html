@@ -6,7 +6,14 @@
 	</button>
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active"><a class="nav-link" href="/index">Home <span class="sr-only">(current)</span>
+			<li class="nav-item active" sec:authorize="isAnonymous()"><a class="nav-link" href="/index">Home
+					<span class="sr-only">(current)</span>
+			</a></li>
+			<li class="nav-item active" sec:authorize="hasRole('ROLE_COMPANY')"><a class="nav-link" href="/company">Home
+					<span class="sr-only">(current)</span>
+			</a></li>
+			<li class="nav-item active" sec:authorize="hasRole('ROLE_CUSTOMER')"><a class="nav-link" href="/customer">Home
+					<span class="sr-only">(current)</span>
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">Products</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>

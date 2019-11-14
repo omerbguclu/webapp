@@ -7,6 +7,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,15 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
         .antMatcher("/company/**")
                 .authorizeRequests()
-                    .antMatchers(
-                    		"/index",
-                            "/company/company-register*",
-                            "/js/**",
-                            "/css/**",
-                            "/img/**",
-                            "/webjars/**").permitAll()
+                	.antMatchers("/company/company-register").permitAll()
                     .anyRequest().authenticated()
-                //.and().authorizeRequests().antMatchers("/index").permitAll().anyRequest().anonymous()
                 .and()
                     .formLogin()
                         .loginPage("/company/company-login")
@@ -81,15 +75,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             http
             .antMatcher("/customer/**")
                     .authorizeRequests()
-                        .antMatchers(
-                        		"/index",
-                                "/customer/customer-register*",
-                                "/js/**",
-                                "/css/**",
-                                "/img/**",
-                                "/webjars/**").permitAll()
+                    	.antMatchers("/customer/customer-register").permitAll()
                         .anyRequest().authenticated()
-                    //.and().authorizeRequests().antMatchers("/index").permitAll().anyRequest().anonymous()
                     .and()
                         .formLogin()
                             .loginPage("/customer/customer-login")
@@ -120,6 +107,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
             auth.authenticationProvider(authenticationProviderForCustomer());
+        }
+    }
+    
+    
+    @EnableWebSecurity
+    @Configuration
+    @Order(3)
+    public static class SecurityConfig3 extends WebSecurityConfigurerAdapter{
+    	
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+            .requestMatchers()
+            	.antMatchers("/","/index");
         }
     }
 }

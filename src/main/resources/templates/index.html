@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <link th:replace="fragments/head :: headerFragment" />
 </head>
@@ -13,11 +13,8 @@
 		<br> <br> <a class="btn btn-primary btn-sm" th:href="${@environment.getProperty('app.company.register')}"
 			role="button">company-register</a> <a class="btn btn-primary btn-sm"
 			th:href="${@environment.getProperty('app.customer.register')}" role="button">customer-register</a>
-
 	</div>
-
-
-
+	
 	<div th:insert="~{fragments/assets :: assets}" th:remove="tag"></div>
 
 </body>
