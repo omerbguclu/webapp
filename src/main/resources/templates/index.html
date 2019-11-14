@@ -5,7 +5,7 @@
 </head>
 <body>
 
-	<div th:insert="~{fragments/header :: navbar}" th:remove="tag"></div>
+	<div th:insert="~{fragments/navbar :: navbar}" th:remove="tag"></div>
 
 	<div class="container">
 		<a class="btn btn-primary btn-sm" th:href="${@environment.getProperty('app.company.login')}" role="button">company-login</a>
